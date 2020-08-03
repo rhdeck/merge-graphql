@@ -4,13 +4,18 @@ import { join } from "path";
 import commander from "commander";
 import { mergeDependencies } from "./";
 commander.option(
-  "-o --output",
+  "-o --output <path-to-schema.graphql>",
   "File to emit results to",
   join(process.cwd(), "./schema.graphql")
 );
-commander.option("-p --path", "Path to workspace", process.cwd());
+commander.option(
+  "-p --path <path-to-workspace>",
+  "Path to workspace",
+  process.cwd()
+);
 commander.parse(process.argv);
 (async () => {
+  console.log(commander);
   const schema = await mergeDependencies(commander.path);
   writeFileSync(commander.output, schema);
 })();
