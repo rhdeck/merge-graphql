@@ -2,7 +2,7 @@
 <a name="readmemd"></a>
 
 
-# @raydeck/merge-graphql - v1.0.0
+# @raydeck/merge-graphql - v1.0.1
 
 ## Index
 
@@ -16,7 +16,7 @@
 
 ▸ **mergeDependencies**(`startPath`: string): *Promise‹string›*
 
-*Defined in [index.ts:11](https://github.com/rhdeck/merge-graphql/blob/8018c64/src/index.ts#L11)*
+*Defined in [index.ts:11](https://github.com/rhdeck/merge-graphql/blob/929dfc9/src/index.ts#L11)*
 
 Extract and merge graphql schemas from dependencies into a single string.
 
