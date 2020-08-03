@@ -1,6 +1,6 @@
 {
   "name": "@raydeck/merge-graphql",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Stitch together graphql schemas from dependencies",
   "main": "lib/index.js",
   "scripts": {
