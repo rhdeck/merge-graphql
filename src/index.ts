@@ -1,6 +1,6 @@
 import { mergeGQLSchemas } from "graphql-schema-utilities";
 import { printSchemaWithDirectives } from "graphql-schema-utilities/dist/printers";
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 /**
  * Extract and merge graphql schemas from dependencies into a single string.
@@ -16,10 +16,17 @@ export async function mergeDependencies(startPath = process.cwd()) {
   const globs =
     "{" +
     Object.keys(allDeps)
-      .flatMap((k) => [
-        join(startPath, "node_modules", k, "schemas", "common", "*.graphql"),
-        join(startPath, "node_modules", k, "schemas", name, "*.graphql"),
-      ])
+      .flatMap((k) => {
+        const base = join(startPath, "node_modules", k, "schemas");
+        if (!existsSync(base)) return [];
+        let out: string[] = [];
+        const commonPath = join(base, "common");
+        if (existsSync(commonPath)) out.push(join(commonPath, "*.graphql"));
+        const namePath = join(base, name);
+        if (existsSync(namePath)) out.push(join(namePath, "*.graphql"));
+        return out;
+      })
+      .filter(Boolean)
       .join(",") +
     "}";
   const out = await mergeGQLSchemas(globs);
