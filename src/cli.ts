@@ -14,8 +14,9 @@ commander.option(
   process.cwd()
 );
 commander.parse(process.argv);
-(async () => {
-  console.log(commander);
-  const schema = await mergeDependencies(commander.path);
-  writeFileSync(commander.output, schema);
-})();
+if (!commander.isDocumenting)
+  (async () => {
+    const schema = await mergeDependencies(commander.path);
+    writeFileSync(commander.output, schema);
+  })();
+export { commander };
